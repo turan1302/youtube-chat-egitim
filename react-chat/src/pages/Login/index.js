@@ -2,6 +2,7 @@ import {Component} from "react";
 import Header from "../../components/common/Header";
 import withRouter from "../../withRouter";
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {inject, observer} from "mobx-react";
 
 class Login extends Component {
     render() {
@@ -39,4 +40,4 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login);
+export default withRouter(inject("AuthStore")(observer(Login)));

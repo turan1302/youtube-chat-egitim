@@ -10,6 +10,7 @@
     "bootstrap": "^4.6.0",
     "crypto-browserify": "^3.12.0",
     "crypto-js": "^4.2.0",
+    "formik": "^2.4.6",
     "jwt-decode": "^4.0.0",
     "jwt-encode": "^1.0.1",
     "mobx": "^6.12.4",
@@ -20,10 +21,11 @@
     "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
     "sweetalert2": "^11.12.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.4.0"
   },
-  "browser" : {
-    "crypto" : false
+  "browser": {
+    "crypto": false
   },
   "scripts": {
     "start": "react-scripts start",

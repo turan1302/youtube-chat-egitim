@@ -36,7 +36,7 @@ class indexController extends BaseController
 
     public function register(RegisterRequest $request)
     {
-        $data = $request->except("_token");
+        $data = $request->except("_token","password_confirmation");
         $data['password'] = Hash::make($data['password']);
 
         $create = ClientModel::create($data);

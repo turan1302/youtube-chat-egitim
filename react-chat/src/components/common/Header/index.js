@@ -15,7 +15,7 @@ class Header extends Component {
 
         return (
             <>
-                <Navbar bg="dark" variant="dark"> d
+                <Navbar bg="dark" variant="dark">
                     <Navbar.Brand as={Link} to={"/"}>mChat</Navbar.Brand>
                     <Nav className="mr-auto">
                         <Nav.Link active={location.pathname==="/"} as={Link} to={"/"}>Anasayfa</Nav.Link>

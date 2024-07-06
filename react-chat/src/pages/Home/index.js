@@ -8,11 +8,15 @@ import {Pagination} from 'react-laravel-paginex';
 import RestClient from "../../RestAPI/RestClient";
 import AppUrl from "../../RestAPI/AppUrl";
 import Notification from "../../RestAPI/Notification";
+import {Link} from "react-router-dom";
+import SocketIO from 'socket.io-client';
 
 class Home extends Component {
 
     constructor(props) {
         super(props);
+
+        this.socket = SocketIO("http://localhost:4444", {transports: ['websocket', 'polling', 'flashsocket']});
 
         this.state = {
             isLoading: true,
@@ -54,7 +58,7 @@ class Home extends Component {
     clientRender = (clients)=>{
         return clients.data.map((item,index)=>{
             return (
-                <ListGroup.Item key={index} className={"d-flex justify-content-between"}>{item.name}
+                <ListGroup.Item as={Link} to={`/message/${item.id}`} key={index} className={"d-flex justify-content-between"}>{item.name}
                     <Badge pill bg={"success"} className={"text-white"}>0</Badge>
                 </ListGroup.Item>
             )

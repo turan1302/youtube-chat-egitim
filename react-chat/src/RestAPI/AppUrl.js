@@ -13,6 +13,9 @@ class AppUrl{
     // home
     static home = this.apiURL+"/home";
 
+    // message
+    static search_receiver = this.apiURL+"/message/search-receiver";
+
 }
 
 export default AppUrl;

@@ -25,7 +25,17 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        this.connectUser();
         this.getClients();
+    }
+
+    connectUser = ()=>{
+        this.props.AuthStore.getToken();
+        const {user} = (this.props.AuthStore.appState !== null) ? this.props.AuthStore.appState : null;
+
+        this.socket.emit("connect_user",{
+            userId : user.id
+        });
     }
 
     getClients = (data = "") => {

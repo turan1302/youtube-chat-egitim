@@ -4,29 +4,30 @@ import withRouter from "../../withRouter";
 import RestClient from "../../RestAPI/RestClient";
 import AppUrl from "../../RestAPI/AppUrl";
 
-class Logout extends Component{
+class Logout extends Component {
+    // eslint-disable-next-line no-useless-constructor
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-       this.doLogout();
+        this.doLogout();
     }
 
-    doLogout = ()=>{
+    doLogout = () => {
         const {navigate} = this.props;
 
         this.props.AuthStore.getToken();
-        const token = (this.props.AuthStore.appState!==null) ? this.props.AuthStore.appState.user.access_token : null;
+        const token = (this.props.AuthStore.appState !== null) ? this.props.AuthStore.appState.user.access_token : null;
 
-        RestClient.getRequest(AppUrl.logout,{
-            headers : {
-                "Authorization" : "Bearer "+token
+        RestClient.getRequest(AppUrl.logout, {
+            headers: {
+                "Authorization": "Bearer " + token
             }
-        }).then((res)=>{
+        }).then((res) => {
             this.props.AuthStore.removeToken();
             navigate("/login");
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
         })
     }
@@ -40,4 +41,4 @@ class Logout extends Component{
     }
 }
 
-export default withRouter(inject("AuthStore")(observer(Logout)))
+export default withRouter(inject("AuthStore")(observer(Logout)));

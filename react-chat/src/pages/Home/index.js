@@ -22,22 +22,24 @@ class Home extends Component {
             isLoading: true,
             clients: []
         }
+
+
+        this.connectUser = this.connectUser.bind(this);
     }
 
     componentDidMount() {
         this.connectUser();
         this.getClients();
-
-        this.connectUser = this.connectUser.bind(this);
     }
 
-    connectUser = ()=>{
-        this.props.AuthStore.getToken();
+    connectUser = () => {
         const {user} = (this.props.AuthStore.appState !== null) ? this.props.AuthStore.appState : null;
 
-        this.socket.emit("connect_user",{
-            userId : user.id
-        });
+        if (user!==null){
+            this.socket.emit("connect_user", {
+                userId: user.id
+            });
+        }
     }
 
     getClients = (data = "") => {
@@ -45,7 +47,7 @@ class Home extends Component {
         const token = (this.props.AuthStore.appState !== null) ? this.props.AuthStore.appState.user.access_token : null;
         const page = (data === "") ? 1 : data.page;
 
-        RestClient.getRequest(AppUrl.home+`?page=${page}`, {
+        RestClient.getRequest(AppUrl.home + `?page=${page}`, {
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -67,10 +69,11 @@ class Home extends Component {
         })
     }
 
-    clientRender = (clients)=>{
-        return clients.data.map((item,index)=>{
+    clientRender = (clients) => {
+        return clients.data.map((item, index) => {
             return (
-                <ListGroup.Item as={Link} to={`/message/${item.id}`} key={index} className={"d-flex justify-content-between"}>{item.name}
+                <ListGroup.Item as={Link} to={`/message/${item.id}`} key={index}
+                                className={"d-flex justify-content-between"}>{item.name}
                     <Badge pill bg={"success"} className={"text-white"}>{item.dont_read}</Badge>
                 </ListGroup.Item>
             )
@@ -99,7 +102,7 @@ class Home extends Component {
                                 <Card.Header>Kullanıcılar</Card.Header>
                                 <Card.Body>
                                     <ListGroup>
-                                        {(clients.data.length>0) ? this.clientRender(clients) : (
+                                        {(clients.data.length > 0) ? this.clientRender(clients) : (
                                             <div className={"alert alert-danger text-center"}>
                                                 Herhangi bir kullanıcı bulunamadı
                                             </div>
@@ -107,10 +110,10 @@ class Home extends Component {
 
                                     </ListGroup>
 
-                                    {(clients.data.length>=10) &&
-                                    <div className={"mt-3"}>
-                                        <Pagination changePage={this.getClients} data={clients}/>
-                                    </div>
+                                    {(clients.data.length >= 10) &&
+                                        <div className={"mt-3"}>
+                                            <Pagination changePage={this.getClients} data={clients}/>
+                                        </div>
                                     }
                                 </Card.Body>
                             </Card>

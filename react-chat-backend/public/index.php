@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+define("SOCKET_URL","http://localhost:4444");
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...

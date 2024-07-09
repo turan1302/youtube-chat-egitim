@@ -27,6 +27,8 @@ class Home extends Component {
     componentDidMount() {
         this.connectUser();
         this.getClients();
+
+        this.connectUser = this.connectUser.bind(this);
     }
 
     connectUser = ()=>{
@@ -69,7 +71,7 @@ class Home extends Component {
         return clients.data.map((item,index)=>{
             return (
                 <ListGroup.Item as={Link} to={`/message/${item.id}`} key={index} className={"d-flex justify-content-between"}>{item.name}
-                    <Badge pill bg={"success"} className={"text-white"}>0</Badge>
+                    <Badge pill bg={"success"} className={"text-white"}>{item.dont_read}</Badge>
                 </ListGroup.Item>
             )
         })

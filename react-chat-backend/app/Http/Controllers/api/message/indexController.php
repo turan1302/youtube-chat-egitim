@@ -65,7 +65,7 @@ class indexController extends BaseController
         $data = $request->except("_token");
 
         $messages = MessageContentsModel::where([
-            ["mgc_messagedId", "=", $data['mgc_messageId']]
+            ["mgc_messageId", "=", $data['mgc_messageId']]
         ])->orderBy("mgc_id", "asc")->get();
 
         return parent::success("Mesajlar getirildi", [
@@ -97,11 +97,12 @@ class indexController extends BaseController
             // SOCKETE MESAJ ATALIM
             $options = ["client" => Client::CLIENT_4X];
             $socket = Client::create(SOCKET_URL, $options);
+            $socket->connect();
             $socket->of("/");
             $socket->emit("send_message", [
                 "receiver_id" => $data['receiver_id'],
                 "sender_id" => $user->id,
-                "message_id" => $message_control->mg_ig,
+                "message_id" => $message_control->mg_id,
                 "message" => $data['message']
             ]);
             $socket->disconnect();

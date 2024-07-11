@@ -20,7 +20,7 @@ Route::group(['prefix'=>'home','as'=>'home.','middleware'=>'auth:api_client'],fu
 
 Route::group(['prefix'=>'message','as'=>'message.','middleware'=>'auth:api_client'],function (){
     Route::post('search-receiver',[\App\Http\Controllers\api\message\indexController::class,'search_receiver'])->name('search_receiver');
-    Route::get('get-messages',[\App\Http\Controllers\api\message\indexController::class,'get_messages'])->name('get_messages');
+    Route::post('get-messages',[\App\Http\Controllers\api\message\indexController::class,'get_messages'])->name('get_messages');
     Route::post('send-message',[\App\Http\Controllers\api\message\indexController::class,'send_message'])->name('send_message');
     Route::post('update-read',[\App\Http\Controllers\api\message\indexController::class,'update_read'])->name('update_read');
 });

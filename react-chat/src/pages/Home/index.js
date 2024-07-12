@@ -23,6 +23,7 @@ class Home extends Component {
             clients: []
         }
 
+        this.clientRefs = {};
 
         this.connectUser = this.connectUser.bind(this);
     }
@@ -39,9 +40,22 @@ class Home extends Component {
     connectUser = () => {
         const {user} = (this.props.AuthStore.appState !== null) ? this.props.AuthStore.appState : null;
 
-        if (user!==null){
+        if (user !== null) {
             this.socket.emit("connect_user", {
                 userId: user.id
+            });
+
+            this.socket.on("message_notification", (data) => {
+                const {clients} = this.state;
+                for (const user of clients.data) {
+                    if (user.id === data.sender_id) {
+                        const ref = this.clientRefs[user.id];
+                        if (ref) {
+                            ref.textContent = data.dont_read;
+                        }
+                        break;
+                    }
+                }
             });
         }
     }
@@ -78,7 +92,9 @@ class Home extends Component {
             return (
                 <ListGroup.Item as={Link} to={`/message/${item.id}`} key={index}
                                 className={"d-flex justify-content-between"}>{item.name}
-                    <Badge pill bg={"success"} className={"text-white"}>{item.dont_read}</Badge>
+                    <Badge pill bg={"success"} className={"text-white"} ref={ref => {
+                        this.clientRefs[item.id] = ref;
+                    }}>{item.dont_read}</Badge>
                 </ListGroup.Item>
             )
         })

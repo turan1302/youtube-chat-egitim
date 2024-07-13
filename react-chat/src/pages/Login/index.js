@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import Notification from "../../RestAPI/Notification";
 import RestClient from "../../RestAPI/RestClient";
 import AppUrl from "../../RestAPI/AppUrl";
+import {Helmet} from "react-helmet";
 
 class Login extends Component {
 
@@ -68,6 +69,11 @@ class Login extends Component {
     render() {
         return (
             <>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Giriş Yap | mChat</title>
+                </Helmet>
+
                 <Header/>
 
                 <Container>

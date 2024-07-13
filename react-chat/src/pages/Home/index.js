@@ -10,6 +10,8 @@ import AppUrl from "../../RestAPI/AppUrl";
 import Notification from "../../RestAPI/Notification";
 import {Link} from "react-router-dom";
 import SocketIO from 'socket.io-client';
+import {CircleSpinner} from "react-spinners-kit";
+import {Helmet} from "react-helmet";
 
 class Home extends Component {
 
@@ -106,13 +108,19 @@ class Home extends Component {
         if (isLoading) {
             return (
                 <div className={"d-flex justify-content-center align-items-center vh-100"}>
-                    Yükleniyor...
+                    <CircleSpinner size={30} color="#686769" loading={isLoading} />
                 </div>
             )
         }
 
         return (
             <AuthLayout>
+
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Anasayfa | mChat</title>
+                </Helmet>
+
                 <Header/>
 
                 <Container className={"mt-5"}>

@@ -9,6 +9,8 @@ import Header from "../../components/common/Header";
 import "../../css/Message.css";
 import {Button, Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import SocketIO from "socket.io-client";
+import {CircleSpinner} from "react-spinners-kit";
+import {Helmet} from "react-helmet";
 
 class Message extends Component {
     constructor(props) {
@@ -20,6 +22,7 @@ class Message extends Component {
 
         this.state = {
             receiver_info: {},
+            isLoading : true,
             form: {
                 sender_id : parseInt(user.id),
                 receiver_id: parseInt(params.id),
@@ -149,6 +152,7 @@ class Message extends Component {
                 }
 
                 this.setState({
+                    isLoading : false,
                     receiver_info: result.data.receiver_info,
                     form: newForm
                 }, () => {
@@ -221,10 +225,23 @@ class Message extends Component {
 
     render() {
         const {user} = (this.props.AuthStore.appState !== null) ? this.props.AuthStore.appState : false;
-        const {receiver_info,messages,form} = this.state;
+        const {receiver_info,messages,form,isLoading} = this.state;
+
+        if (isLoading) {
+            return (
+                <div className={"d-flex justify-content-center align-items-center vh-100"}>
+                    <CircleSpinner size={30} color="#686769" loading={isLoading} />
+                </div>
+            )
+        }
 
         return (
             <AuthLayout>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Alıcı: '{receiver_info.name}' | mChat</title>
+                </Helmet>
+
                 <Header/>
 
                 <Container className={"mt-5"}>

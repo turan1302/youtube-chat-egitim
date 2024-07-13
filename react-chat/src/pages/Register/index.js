@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import RestClient from "../../RestAPI/RestClient";
 import AppUrl from "../../RestAPI/AppUrl";
 import Notification from "../../RestAPI/Notification";
+import {Helmet} from "react-helmet";
 
 class Register extends Component {
 
@@ -48,6 +49,11 @@ class Register extends Component {
     render() {
         return (
             <>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Kayıt Ol | mChat</title>
+                </Helmet>
+
                 <Header/>
 
                 <Container>

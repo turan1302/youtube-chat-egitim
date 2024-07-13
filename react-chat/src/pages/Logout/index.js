@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import withRouter from "../../withRouter";
 import RestClient from "../../RestAPI/RestClient";
 import AppUrl from "../../RestAPI/AppUrl";
+import {Helmet} from "react-helmet";
 
 class Logout extends Component {
     // eslint-disable-next-line no-useless-constructor
@@ -35,7 +36,10 @@ class Logout extends Component {
     render() {
         return (
             <>
-
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Çıkış Yap | mChat</title>
+                </Helmet>
             </>
         )
     }
